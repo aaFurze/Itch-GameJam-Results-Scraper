@@ -4,6 +4,7 @@ import asyncio
 
 
 if __name__ == "__main__":
-    results = asyncio.run(get_jam_submissions_html("https://itch.io/jam/kenney-jam-2022/results"))
+    # results = asyncio.run(get_jam_submissions_html("https://itch.io/jam/kenney-jam-2022/results", max_pages=100))
+    results = asyncio.run(get_jam_submissions_html("https://itch.io/jam/cgj/results", max_pages=1))
     data = create_submission_scores_df(results)
-    create_submissions_data_csv(data, "Kenney-Jam-2022")
+    create_submissions_data_csv(data, "Community-Jam")

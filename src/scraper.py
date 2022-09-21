@@ -2,13 +2,13 @@ from bs4 import BeautifulSoup
 import httpx
 
 
-async def get_jam_submissions_html(base_url: str):
+async def get_jam_submissions_html(base_url: str, max_pages: int = 100):
     webpages_html = []
     running = True
     page_num = 1
 
     async with httpx.AsyncClient() as client:
-        while page_num < 100 and running:
+        while page_num <= max_pages and running:
             addon = f"?page={page_num}"
             html = await get_webpage_data(client, f"{base_url}{addon}")
 
