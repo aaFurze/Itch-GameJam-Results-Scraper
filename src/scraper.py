@@ -3,6 +3,8 @@ import httpx
 
 
 async def get_jam_submissions_html(base_url: str, max_pages: int = 100):
+    if max_pages is None:
+        max_pages = 100 
     webpages_html = []
     running = True
     page_num = 1
@@ -14,6 +16,7 @@ async def get_jam_submissions_html(base_url: str, max_pages: int = 100):
 
             if html:
                 webpages_html.append(html)
+                print(f"Page {page_num} results retrieved.")
                 page_num += 1
                 continue
             else:

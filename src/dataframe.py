@@ -5,11 +5,19 @@ import datetime
 
 
 def create_submission_scores_df(pages: List[BeautifulSoup]) -> pd.DataFrame:
+    '''
+    Parameter: List of HTML Pages (BeautifulSoup objects). 
+    Returns: Pandas Dataframe containing scoring data from each page.
+    '''
     rating_categories = _get_rating_categories(pages[0])
     df = _create_df(rating_categories)
+    print("Populating Dataframe")
+    counter = 0
     for page in pages:
         page_data = _jam_results_page_to_data(page, rating_categories)
         for submission in page_data:
+            counter += 1
+            print(f"Inserting submission {counter} data.")
             df.loc[len(df)] = submission
     return df
 
@@ -22,6 +30,8 @@ def create_submissions_data_csv(submission_data: pd.DataFrame, filename: str) ->
 def _get_rating_categories(page: BeautifulSoup) -> List[str]:
     table = page.find("table")
     table_rows = table.find_all("tr")
+
+    # Add number_of_ratings column as default.
     output = []
 
     for i, row in enumerate(table_rows):
@@ -29,8 +39,11 @@ def _get_rating_categories(page: BeautifulSoup) -> List[str]:
         first_item = row.find("td")
         output.append(first_item.text)
     
+    if "Overall" not in output:
+        return output
+    
     overall_index = output.index("Overall")
-    if overall_index != 0:
+    if overall_index != 0 and overall_index != -1:
         new_output = [output[overall_index]]
         for value in output:
             if value == "Overall":
@@ -57,7 +70,6 @@ def _create_df(category_groups: List[str]):
                 base_name += char
             
         column_names += [f"{base_name}_rank", f"{base_name}_score", f"{base_name}_raw_score"]
-    print(column_names)
 
     output = pd.DataFrame(columns=column_names)
 
@@ -65,9 +77,17 @@ def _create_df(category_groups: List[str]):
 
 
 def _jam_results_page_to_data(page_html: BeautifulSoup, categories: List[str]) -> List[List[str]]:
+    # ratings_container = page_html.find_all("some_criteria")
+    # for rating in ratings_container:
+    #   Do some re/parsing to get the rating value
+    #   Add the value to a list of ratings.
+
     tables = page_html.find_all("table")
     output = []
+    # Convert this to an enumerable.
     for table in tables:
+        # data = [ratings_list[i]]
+        # data += table_values
         data = _table_to_values(table, categories)
         output.append(data)
     return output
@@ -79,24 +99,16 @@ def _table_to_values(table_html: BeautifulSoup, categories: List[str]) -> List[s
 
     temp_dict = {category: None for category in categories}
     keys = temp_dict.keys()
-    # temp_dict = {"overall": None, "theme": None, "visuals": None, "concept": None}
 
     for row in cleaned_rows:
         for key in keys:
             if row[0].find(key) != -1:
-                temp_dict[key] = row[1:]
-        """
-        if row[0].find("Overall") != -1:
-            temp_dict["overall"] = row[1:]
-        elif row[0].find("visuals") != -1:
-            temp_dict["visuals"] = row[1:]
-        elif row[0].find("Theme") != -1:
-            temp_dict["theme"] = row[1:]   
-        elif row[0].find("Concept") != -1:
-            temp_dict["concept"] = row[1:]      
-        """ 
+                temp_dict[key] = row[1:] 
     output = []
     for key in keys:
+        if temp_dict[key] is None:
+            output += ["n/a", "n/a", "n/a"]
+            continue
         output += temp_dict[key]
     
     return output
