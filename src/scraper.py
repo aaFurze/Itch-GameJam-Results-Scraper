@@ -1,11 +1,18 @@
+from typing import List
 from bs4 import BeautifulSoup
 import httpx
 
 
-async def get_jam_submissions_html(base_url: str, max_pages: int = 100):
+async def get_jam_submissions_html(base_url: str, max_pages: int = 100) -> List[BeautifulSoup]:
+    '''
+    When provided a base_url, retrieves results pages until it runs out of pages or reaches the maximum number of pages
+    specified by the max_pages parameter.
+    Uses httpx library to enable asyncronous fetching of pages.
+    Adds "?page={page_num}" to the end of base_url to retrieve the pages.
+    '''
     if max_pages is None:
         max_pages = 100 
-    webpages_html = []
+    webpages_html: List[BeautifulSoup] = []
     running = True
     page_num = 1
 
@@ -25,7 +32,12 @@ async def get_jam_submissions_html(base_url: str, max_pages: int = 100):
     return webpages_html
 
 
-async def get_webpage_data(client: httpx.AsyncClient, url: str):
+async def get_webpage_data(client: httpx.AsyncClient, url: str) -> BeautifulSoup:
+    '''
+    Asynchronous function that retrieves a get request for the speicified page, and then returns a BeautifulSoup object of the 
+    requests html if the status code returned is 200, else None.
+    Requires a AsyncClient be provided from the httpx module.
+    '''
     result = await client.get(url)
     if result.status_code != 200:
         return None
