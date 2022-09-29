@@ -3,7 +3,7 @@ from src.dataframe import create_submissions_data_csv, create_submission_scores_
 import asyncio
 
 
-if __name__ == "__main__":
+def run():
     base_url = input("Enter the base url of the GameJam you would like to scrape score data for. e.g. https://itch.io/jam/kenney-jam-2022/results : \n")
     max_pages = input("Enter the maximum number of results you would like to retrieve (default value = 2000): \n")
     if max_pages == "":
@@ -18,3 +18,8 @@ if __name__ == "__main__":
     print(f"Saving results...")
     create_submissions_data_csv(data, f"{save_file_base_name}")
     print("Execution Successful.")
+
+
+if __name__ == "__main__":
+    run()
+

@@ -31,35 +31,37 @@ def _get_rating_categories(page: BeautifulSoup) -> List[str]:
     table = page.find("table")
     table_rows = table.find_all("tr")
 
-    # Add number_of_ratings column as default.
-    output = []
+    basic_data_columns = ["game_title", "author", "number_of_ratings"]
+
+    rating_columns = []
 
     for i, row in enumerate(table_rows):
         if i == 0: continue
         first_item = row.find("td")
-        output.append(first_item.text)
+        rating_columns.append(first_item.text)
     
-    if "Overall" not in output:
-        return output
+    if "Overall" not in rating_columns:
+        return basic_data_columns + rating_columns
     
-    overall_index = output.index("Overall")
+    overall_index = rating_columns.index("Overall")
     if overall_index != 0 and overall_index != -1:
-        new_output = [output[overall_index]]
-        for value in output:
+        new_output = [rating_columns[overall_index]]
+        for value in rating_columns:
             if value == "Overall":
                 continue
             new_output.append(value)
         
+        new_output = basic_data_columns + new_output
         return new_output
 
     
-    return output
+    return basic_data_columns + rating_columns
 
 
 
 def _create_df(category_groups: List[str]):
-    column_names = []
-    for category in category_groups:
+    column_names = category_groups[:3]
+    for category in category_groups[3:]:
         base_name = ""
         for char in category.lower():
             if char in [" "]:
@@ -77,19 +79,29 @@ def _create_df(category_groups: List[str]):
 
 
 def _jam_results_page_to_data(page_html: BeautifulSoup, categories: List[str]) -> List[List[str]]:
-    # ratings_container = page_html.find_all("some_criteria")
-    # for rating in ratings_container:
-    #   Do some re/parsing to get the rating value
-    #   Add the value to a list of ratings.
+
+    summary_containers = page_html.find_all("div", class_="game_summary")
+    game_titles = []
+    authors = []
+    rating_figures = []
+
+    for container in summary_containers:
+        game_titles.append(container.find("h2").text)
+
+        h3_tags = container.find_all("h3")
+        authors.append(h3_tags[0].text[3:])
+        rating_text_block = h3_tags[1].text
+        rating_figures.append(rating_text_block[rating_text_block.find("with") + 4 : rating_text_block.find("ratings") - 1])
+
 
     tables = page_html.find_all("table")
     output = []
-    # Convert this to an enumerable.
-    for table in tables:
-        # data = [ratings_list[i]]
-        # data += table_values
-        data = _table_to_values(table, categories)
+
+    for i, table in enumerate(tables):
+        data = [game_titles[i], authors[i], rating_figures[i]]
+        data += _table_to_values(table, categories[3:])
         output.append(data)
+
     return output
 
 
