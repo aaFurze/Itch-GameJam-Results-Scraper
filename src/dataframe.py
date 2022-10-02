@@ -17,8 +17,9 @@ def create_submission_scores_df(pages: List[BeautifulSoup]) -> pd.DataFrame:
         page_data = _jam_results_page_to_data(page, rating_categories)
         for submission in page_data:
             counter += 1
-            print(f"Inserting submission {counter} data.")
             df.loc[len(df)] = submission
+            if counter % 25 == 0:
+                print(f"Inserted {counter} rows of submission data")
     return df
 
 def create_submissions_data_csv(submission_data: pd.DataFrame, filename: str) -> bool:
@@ -170,6 +171,5 @@ def _get_cleaned_table_rows(rows: List[BeautifulSoup]) -> List[List[str]]:
         for column in row_values:
             output_row.append(column.text)
         output.append(output_row)
-    print(output)
     return output
 
