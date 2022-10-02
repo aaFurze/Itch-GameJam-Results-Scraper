@@ -42,3 +42,17 @@ async def get_webpage_data(client: httpx.AsyncClient, url: str) -> BeautifulSoup
     if result.status_code != 200:
         return None
     return BeautifulSoup(result.text, "lxml")
+
+
+def check_webpage_exists(url: str):
+    if url.strip()[:5] != "https":
+        return False
+    result = ""
+    try:
+        result = httpx.get(url)
+    except httpx.ConnectError:
+        print("Invalid website address provided. Did you enter the url correctly?")
+    if not result: return False
+    if result.status_code == 200:
+        return True
+    return False
