@@ -1,13 +1,5 @@
 # Itch-GameJam-Results-Scraper
 ### A Program that scrapes aggregated data on results/rating figures from an itch.io GameJam. 
-Last tested on: 28th September, 2022  
-URLs tested on:  
-https://itch.io/jam/gmtk-jam-2022/results   
-https://itch.io/jam/wowie-jam-4/results  
-https://itch.io/jam/game-off-2017  
-https://itch.io/jam/kenney-jam-2022  
-https://itch.io/jam/brackeys-5/results  
-
 
 # Contents
 
@@ -53,7 +45,7 @@ This Webscraper does not:
 
 ### Setting up the Virtual Environment
 It is good practice to create a virtual environment for this project (and for any other project with non-standard-library dependencies).
-See this guide for how to setup and activate a virtual environment: Python docs[https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment]
+See this guide for how to setup and activate a virtual environment: [Python docs](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment "Python docs")
 
 NOTE: Ensure that you activate the environment once you have created it.
 
@@ -160,4 +152,17 @@ You should now be able to access your data in the /data folder.
 
 
 Thank you for using my WebScraper.
-If you have find any problems with the WebScraper, please log them as a GitHub issue [https://github.com/aaFurze/Itch-GameJam-Results-Scraper/issues]
+If you have find any problems with the WebScraper, please log them as a [GitHub issue](https://github.com/aaFurze/Itch-GameJam-Results-Scraper/issues "GitHub Issues link")
+
+
+<br/>
+<br/>
+<br/>
+
+[^1] Last tested on: 28th September, 2022  
+[^2] URLs tested on:  
+  https://itch.io/jam/gmtk-jam-2022/results   
+  https://itch.io/jam/wowie-jam-4/results  
+  https://itch.io/jam/game-off-2017  
+  https://itch.io/jam/kenney-jam-2022  
+  https://itch.io/jam/brackeys-5/results  
