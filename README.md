@@ -101,10 +101,10 @@ Enter the base url of the GameJam you would like to scrape score data for. e.g. 
 
 ```
 Copy in or manually type out the url of the GameJam results you want to retrieve data for.
-NOTE: Ensure that the url matches the desired format. It must:
-- Be a valid url: "https://_______.com"
-- Be an itch.io Jam page: "itch.io/jam"
-- Link to the results page of the Jam at the end of the url: "/results"
+- NOTE: Ensure that the url matches the desired format. It must:
+ - Be a valid url: "https://_______.com"
+ - Be an itch.io Jam page: "itch.io/jam"
+ - Link to the results page of the Jam at the end of the url: "/results"
 
 <br/>
 <br/>
@@ -127,7 +127,7 @@ Enter what you want to save the file as. (Do not include .csv at the end):
 
 ```
 Enter what you want to save the results as. A .csv file will created by the program in the /data folder.
-NOTE: Invalid characters (non-numbers, letters or "-" "_") will be removed automatically. Spaces will be converted into "-" characters.
+- NOTE: Invalid characters (non-numbers, letters or "-" "_") will be removed automatically. Spaces will be converted into "-" characters.
 
 <br/>
 <br/>
