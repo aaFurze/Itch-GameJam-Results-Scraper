@@ -152,15 +152,15 @@ You should now be able to access your data in the /data folder.
 
 
 Thank you for using my WebScraper.
-If you have find any problems with the WebScraper, please log them as a [GitHub issue](https://github.com/aaFurze/Itch-GameJam-Results-Scraper/issues "GitHub Issues link")
+If you have find any problems with the WebScraper, please log them as a [GitHub issue](https://github.com/aaFurze/Itch-GameJam-Results-Scraper/issues "GitHub Issues link").
 
 
 <br/>
 <br/>
 <br/>
 
-[^1] Last tested on: 28th September, 2022  
-[^2] URLs tested on:  
+Last tested: 28th September, 2022  
+URLs tested on:  
   https://itch.io/jam/gmtk-jam-2022/results   
   https://itch.io/jam/wowie-jam-4/results  
   https://itch.io/jam/game-off-2017  
