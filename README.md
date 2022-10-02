@@ -1,5 +1,5 @@
 # Itch-GameJam-Results-Scraper
-### A Program that scrapes aggregated data on results/rating figures from an itch.io GameJam. 
+### A Program that scrapes aggregated data on results/rating figures from an itch.io GameJam. (See data folder for example csv files).
 
 # Contents
 
